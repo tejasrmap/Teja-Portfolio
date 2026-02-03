@@ -69,7 +69,7 @@ const DEFAULT_DATA: PortfolioData = {
         "Active member of the Next-Gen Tech Lab."
       ]
     }
-  ]
+  ],
   customSections: []
 };
 
