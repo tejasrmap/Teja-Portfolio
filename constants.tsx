@@ -74,8 +74,19 @@ const DEFAULT_DATA: PortfolioData = {
       degree: "MPC - Intermediate",
       period: "2022 - 2024",
       description: [
-        "TOTAL = 896 / 1000"
+        "TOTAL = 896 / 1000",
+        "PERCENTAGE = 89.6 %"
       ]
+    },
+    {
+      institution: "Ravindra Bharathi School - Gudivada",
+      degree: "SSC",
+      period: "2022",
+      description: [
+        "TOTAL = 482 / 600 - 80 %",
+        "PERCENTAGE = 80.0 %"
+      ]
+      
     },
   ],
   customSections: []
