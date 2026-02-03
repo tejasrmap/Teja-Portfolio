@@ -26,9 +26,9 @@ const DEFAULT_DATA: PortfolioData = {
       title: "CROWD MONITOR",
       description: "Proprietary internal architecture for scalable data processing and AI integration.",
       longDescription: "Innovix Core is the backbone of GT Innovix's software suite. It manages complex data streams and provides a unified interface for generative AI models to interact with legacy systems.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
+      image: "https://i.pinimg.com/736x/da/a1/1b/daa11b7fd6597c08e98bd019c12e5d8e.jpg",
       tags: ["System Architecture", "AI", "Big Data"],
-      links: { github: "#" }
+      links: { github: "https://github.com/tejasrmap/CrowdDetection-VibeCraft", redirect: "https://crowdmonitoring-vibecraft.netlify.app/"}
     },
     {
       id: "SRM-02",
