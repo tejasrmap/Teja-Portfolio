@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astra // Liquid Glass</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #06b6d4;
+      --secondary: #d946ef;
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.15);
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #030712;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, .nav-logo {
+      font-family: 'Syne', sans-serif;
+    }
+
+    .liquid-mesh {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: #030712;
+      overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      filter: blur(80px);
+      border-radius: 50%;
+      opacity: 0.15;
+      animation: drift 20s infinite alternate ease-in-out;
+    }
+    .blob-1 { top: -10%; left: -10%; animation-delay: 0s; }
+    .blob-2 { bottom: -10%; right: -10%; animation-delay: -5s; background: var(--secondary); }
+    .blob-3 { top: 40%; left: 50%; animation-delay: -10s; width: 400px; height: 400px; opacity: 0.1; }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to { transform: translate(100px, 50px) scale(1.2); }
+    }
+
+    .liquid-glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+    
+    .specular-border {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .buoyant {
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .buoyant:hover {
+      transform: translateY(-10px) scale(1.02);
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "react/": "https://esm.sh/react@^19.2.4/",
+      "react": "https://esm.sh/react@^19.2.4",
+      "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+      "@google/genai": "https://esm.sh/@google/genai@^1.39.0"
+    }
+  }
+  </script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div class="liquid-mesh">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
