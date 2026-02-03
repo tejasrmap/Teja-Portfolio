@@ -41,14 +41,14 @@ const DEFAULT_DATA: PortfolioData = {
     }
   ],
   skills: [
-    { name: "C", level: 96, category: "Programming", icon: "fa-solid fa-chart-network" },
+    { name: "C", level: 96, category: "Programming", icon: "fa-solid fa-code" },
     { name: "C++", level: 98, category: "Programming", icon: "fa-solid fa-code" },
-    { name: "Python", level: 94, category: "Programming", icon: "fa-solid fa-layer-group" },
-    { name: "HTML", level: 97, category: "Frontend", icon: "fa-brands fa-react" },
-    { name: "JS", level: 96, category: "Frontend", icon: "fa-solid fa-chart-network" },
+    { name: "Python", level: 94, category: "Programming", icon: "fa-solid fa-code" },
+    { name: "HTML", level: 97, category: "Frontend", icon: "fa-solid fa-code" },
+    { name: "JS", level: 96, category: "Frontend", icon: "fa-solid fa-code" },
     { name: "CSS", level: 98, category: "Frontend", icon: "fa-solid fa-code" },
     { name: "MySQL", level: 94, category: "DataBase", icon: "fa-solid fa-layer-group" },
-    { name: "MongoDB", level: 97, category: "DataBase", icon: "fa-brands fa-react" },
+    { name: "MongoDB", level: 97, category: "DataBase", icon: "fa-solid fa-layer-group" },
   ],
   experience: [
     {
