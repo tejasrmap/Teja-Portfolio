@@ -99,7 +99,6 @@ const App: React.FC = () => {
     updateData({ ...data, experience: [newExp, ...data.experience] });
   };
 
-  // Fixed typo: changed ...data.experience to ...data.education to match Education[] type
   const addEducation = () => {
     const newEdu: Education = { institution: "University", degree: "Degree Name", period: "Year-Year", description: ["Achievement..."] };
     updateData({ ...data, education: [newEdu, ...data.education] });
@@ -120,6 +119,17 @@ const App: React.FC = () => {
 
   const removeCustomSection = (id: string) => {
     updateData({ ...data, customSections: data.customSections.filter(s => s.id !== id) });
+  };
+
+  // Handle name parts for staggered layout
+  const nameParts = data.name.split(' ');
+  const firstName = nameParts[0] || "";
+  const lastName = nameParts.slice(1).join(' ') || "";
+
+  // Dynamic Scale Style for the massive name
+  const dynamicNameStyle = {
+    fontSize: `clamp(4rem, ${(data.nameScale || 1) * 11}vw, ${(data.nameScale || 1) * 15}rem)`,
+    lineHeight: '0.8'
   };
 
   return (
@@ -157,11 +167,30 @@ const App: React.FC = () => {
              <button onClick={() => setIsEditMode(!isEditMode)} className={`px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] transition-all ${isEditMode ? 'bg-fuchsia-600 text-white' : 'bg-white/5 text-cyan-400 border border-cyan-400/50'}`}>
                {isEditMode ? 'Exit Build Mode' : 'Enter Build Mode'}
              </button>
+             
              {isEditMode && (
-               <button onClick={addCustomSection} className="px-8 py-3 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-cyan-500/20 transition-all">
-                 + Add New Section
-               </button>
+               <div className="flex flex-col gap-3 mt-2 px-2">
+                 <div className="flex flex-col gap-2">
+                   <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-widest text-white/40">
+                     <span>Name Scale</span>
+                     <span>{Math.round((data.nameScale || 1) * 100)}%</span>
+                   </div>
+                   <input 
+                    type="range" 
+                    min="0.4" 
+                    max="1.6" 
+                    step="0.05"
+                    value={data.nameScale || 1}
+                    onChange={(e) => updateData({...data, nameScale: parseFloat(e.target.value)})}
+                    className="w-full h-1 bg-white/10 rounded-full accent-cyan-400"
+                   />
+                 </div>
+                 <button onClick={addCustomSection} className="px-8 py-3 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-cyan-500/20 transition-all mt-2">
+                   + Add New Section
+                 </button>
+               </div>
              )}
+             
              <button onClick={handleLogout} className="px-8 py-3 rounded-2xl bg-white/5 text-white/40 border border-white/10 font-black text-[10px] uppercase tracking-[0.3em] mt-4">Lock System</button>
            </div>
         </div>
@@ -170,51 +199,99 @@ const App: React.FC = () => {
       <main className="max-w-[1400px] mx-auto px-6 md:px-10 pt-32 md:pt-48 pb-20">
         
         {/* --- ABOUT --- */}
-        <section id="about" className="mb-48 md:mb-64">
-          <div className="grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
-            {/* Text Content */}
-            <div>
-              <div className="inline-flex px-6 py-2 rounded-full liquid-glass mb-8 text-[11px] font-bold text-cyan-400 border-white/20 tracking-[0.2em] uppercase">
-                {isEditMode ? <input value={data.role} onChange={(e) => updateData({...data, role: e.target.value})} className="bg-transparent border-b border-cyan-500/40 focus:outline-none" /> : data.role}
+        <section id="about" className="mb-48 md:mb-64 relative min-h-[70vh] flex flex-col justify-center">
+          {/* Background Layer: Profile Photo */}
+          <div className="lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-2/5 flex justify-center lg:justify-end z-0">
+            <div className="relative w-full max-w-[420px] lg:max-w-[550px] aspect-square lg:aspect-[4/5] xl:aspect-square">
+              <div 
+                onClick={() => isEditMode && triggerImageUpload('avatar')} 
+                className={`relative w-full h-full rounded-[4rem] overflow-hidden group shadow-[0_40px_80px_-15px_rgba(0,0,0,0.8)] border border-white/10 ${isEditMode ? 'cursor-pointer ring-4 ring-cyan-500' : ''}`}
+              >
+                {isEditMode && <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/60 backdrop-blur-md text-white font-black text-[10px] text-center p-4 uppercase tracking-widest">Update Photo</div>}
+                <img src={data.avatar} className="w-full h-full object-cover grayscale-[0.2] transition-all duration-1000" alt={data.name} />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/10 to-transparent lg:hidden"></div>
               </div>
-              <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-extrabold mb-12 leading-[0.85] uppercase tracking-tighter">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-400">{data.name.split(' ')[0]}</span><br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-cyan-400">{data.name.split(' ')[1]}</span>
-              </h1>
-              <div className="text-xl md:text-2xl text-white/90 font-bold mb-8 uppercase">
-                {isEditMode ? <textarea value={data.bio} onChange={(e) => updateData({...data, bio: e.target.value})} className="bg-white/5 w-full p-4 rounded-2xl" /> : data.bio}
+              <div className="absolute -bottom-10 -right-10 w-48 h-48 liquid-glass rounded-full border-white/10 -z-10 animate-pulse hidden lg:block opacity-30"></div>
+            </div>
+          </div>
+
+          {/* Foreground Layer: Text Content */}
+          <div className="relative z-10 pointer-events-none lg:w-full">
+            <div className="pointer-events-auto">
+              <div className="inline-flex px-8 py-3 rounded-full liquid-glass mb-10 text-[11px] font-black text-cyan-400 border-cyan-400/30 tracking-[0.3em] uppercase shadow-[0_0_20px_rgba(34,211,238,0.2)]">
+                {isEditMode ? (
+                  <input 
+                    value={data.role} 
+                    onChange={(e) => updateData({...data, role: e.target.value})} 
+                    className="bg-transparent border-b border-cyan-500/40 focus:outline-none w-full" 
+                    placeholder="ENTER ROLE"
+                  />
+                ) : data.role}
               </div>
-              <div className="text-lg text-white/50 leading-relaxed whitespace-pre-line mb-12">
-                {isEditMode ? <textarea value={data.fullBio} onChange={(e) => updateData({...data, fullBio: e.target.value})} className="bg-white/5 w-full p-4 rounded-2xl h-48" /> : data.fullBio}
+
+              {/* Huge Typography Overlay */}
+              <div className="mb-16">
+                {isEditMode ? (
+                  <div className="flex flex-col gap-4">
+                    <input 
+                      value={firstName}
+                      onChange={(e) => {
+                        const newName = `${e.target.value.toUpperCase()} ${lastName}`;
+                        updateData({...data, name: newName.trim()});
+                      }}
+                      style={dynamicNameStyle}
+                      className="font-extrabold uppercase tracking-tighter bg-transparent border-b-4 border-cyan-500/20 focus:outline-none focus:border-cyan-400 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-cyan-300 to-fuchsia-400 w-full drop-shadow-[0_20px_50px_rgba(0,0,0,1)]"
+                      placeholder="FIRST"
+                    />
+                    <input 
+                      value={lastName}
+                      onChange={(e) => {
+                        const newName = `${firstName} ${e.target.value.toUpperCase()}`;
+                        updateData({...data, name: newName.trim()});
+                      }}
+                      style={dynamicNameStyle}
+                      className="font-extrabold uppercase tracking-tighter bg-transparent border-b-4 border-fuchsia-500/20 focus:outline-none focus:border-fuchsia-400 text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-fuchsia-300 to-cyan-400 w-full lg:ml-32 drop-shadow-[0_20px_50px_rgba(0,0,0,1)]"
+                      placeholder="LAST"
+                    />
+                  </div>
+                ) : (
+                  <h1 className="font-extrabold uppercase tracking-tighter" style={dynamicNameStyle}>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-cyan-300 to-fuchsia-400 block drop-shadow-[0_20px_50px_rgba(0,0,0,1)]">
+                      {firstName}
+                    </span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-fuchsia-300 to-cyan-400 block lg:-mt-12 lg:ml-32 drop-shadow-[0_20px_50px_rgba(0,0,0,1)]">
+                      {lastName}
+                    </span>
+                  </h1>
+                )}
               </div>
               
-              <div className="flex flex-wrap gap-8">
-                {Object.entries(data.socials).map(([key, val]) => (
-                  <div key={key} className="flex flex-col gap-2">
-                    <span className="text-[8px] font-black uppercase tracking-widest text-white/20">{key}</span>
-                    {isEditMode ? (
-                      <input 
-                        value={val}
-                        onChange={(e) => updateData({ ...data, socials: { ...data.socials, [key]: e.target.value }})}
-                        className="bg-transparent border-b border-cyan-500/30 text-xs text-cyan-400 focus:outline-none min-w-[150px]"
-                        placeholder={`Your ${key} link`}
-                      />
-                    ) : (
-                      <a href={val} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-cyan-400 transition-all text-xl">
-                        <i className={`fa-brands fa-${key === 'email' ? 'google' : key} fa-${key === 'twitter' ? 'x-twitter' : key}`}></i>
-                      </a>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Profile Photo */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-[460px]">
-                <div onClick={() => isEditMode && triggerImageUpload('avatar')} className={`relative aspect-square rounded-[3rem] overflow-hidden group shadow-2xl border border-white/10 ${isEditMode ? 'cursor-pointer ring-4 ring-cyan-500' : ''}`}>
-                  {isEditMode && <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/60 backdrop-blur-md text-white font-black text-[10px] text-center p-4 uppercase tracking-widest">Update Photo</div>}
-                  <img src={data.avatar} className="w-full h-full object-cover grayscale-[0.2]" alt={data.name} />
+              <div className="max-w-xl lg:max-w-2xl bg-black/40 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-8 lg:p-0 rounded-[3rem] border border-white/10 lg:border-none">
+                <div className="text-2xl md:text-3xl text-white font-bold mb-8 uppercase tracking-tight leading-none">
+                  {isEditMode ? <textarea value={data.bio} onChange={(e) => updateData({...data, bio: e.target.value})} className="bg-white/5 w-full p-4 rounded-2xl" /> : data.bio}
+                </div>
+                <div className="text-lg md:text-xl text-white/50 leading-relaxed font-medium mb-12">
+                  {isEditMode ? <textarea value={data.fullBio} onChange={(e) => updateData({...data, fullBio: e.target.value})} className="bg-white/5 w-full p-4 rounded-2xl h-48" /> : data.fullBio}
+                </div>
+                
+                <div className="flex flex-wrap gap-10">
+                  {Object.entries(data.socials).map(([key, val]) => (
+                    <div key={key} className="flex flex-col gap-2 group">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-white/20 group-hover:text-cyan-400/50 transition-colors">{key}</span>
+                      {isEditMode ? (
+                        <input 
+                          value={val}
+                          onChange={(e) => updateData({ ...data, socials: { ...data.socials, [key]: e.target.value }})}
+                          className="bg-transparent border-b border-cyan-500/30 text-xs text-cyan-400 focus:outline-none min-w-[150px]"
+                          placeholder={`Your ${key} link`}
+                        />
+                      ) : (
+                        <a href={val} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-cyan-400 transition-all text-2xl">
+                          <i className={`fa-brands fa-${key === 'email' ? 'google' : key} fa-${key === 'twitter' ? 'x-twitter' : key}`}></i>
+                        </a>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

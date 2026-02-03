@@ -60,6 +60,7 @@ export interface PortfolioData {
   avatar: string;
   bio: string;
   fullBio: string;
+  nameScale?: number;
   projects: Project[];
   skills: Skill[];
   experience: Experience[];

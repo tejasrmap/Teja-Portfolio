@@ -7,6 +7,7 @@ const DEFAULT_DATA: PortfolioData = {
   avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=1000",
   bio: "Big Data Analyst | Full Stack Developer | Founder MD Of GT Innovix LLP",
   fullBio: "I am a BTech Computer Science Engineering (Big Data Analytics) student at SRM University – AP who is deeply interested in learning, building, and innovating through technology. As the founder of GT Innovix, I focus on creating software solutions that are practical, scalable, and aligned with real-world needs.\n\nMy areas of interest include full stack development, data analytics, and problem-solving through technology. I enjoy experimenting with new tools, frameworks, and ideas, and I constantly challenge myself to improve both my technical and analytical skills.\n\nI strongly believe that technology has the power to create meaningful impact. My goal is to continuously grow as a developer and contribute to projects that combine innovation, efficiency, and real-world value.",
+  nameScale: 1,
   socials: {
     github: "https://github.com/teja-ganugula",
     linkedin: "https://linkedin.com/in/teja-ganugula",
@@ -74,6 +75,7 @@ const getInitialData = (): PortfolioData => {
       const parsed = JSON.parse(saved);
       if (!parsed.education) parsed.education = DEFAULT_DATA.education;
       if (!parsed.customSections) parsed.customSections = [];
+      if (parsed.nameScale === undefined) parsed.nameScale = 1;
       return parsed;
     } catch (e) {
       return DEFAULT_DATA;
