@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
   
-  const [uploadTarget, setUploadTarget] = useState<{ type: 'avatar' | 'project', id?: string } | null>(null);
+  const [uploadTarget, setUploadTarget] = useState<{ type: 'avatar' | 'project' | 'skill', id?: string | number } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const updateData = (newData: PortfolioData) => {
@@ -35,7 +35,7 @@ const App: React.FC = () => {
     setIsEditMode(false);
   };
 
-  const triggerImageUpload = (type: 'avatar' | 'project', id?: string) => {
+  const triggerImageUpload = (type: 'avatar' | 'project' | 'skill', id?: string | number) => {
     setUploadTarget({ type, id });
     fileInputRef.current?.click();
   };
@@ -53,6 +53,10 @@ const App: React.FC = () => {
             ...data,
             projects: data.projects.map(p => p.id === uploadTarget.id ? { ...p, image: base64String } : p)
           });
+        } else if (uploadTarget.type === 'skill' && typeof uploadTarget.id === 'number') {
+          const newSkills = [...data.skills];
+          newSkills[uploadTarget.id] = { ...newSkills[uploadTarget.id], image: base64String };
+          updateData({ ...data, skills: newSkills });
         }
         setUploadTarget(null);
       };
@@ -119,6 +123,16 @@ const App: React.FC = () => {
 
   const removeCustomSection = (id: string) => {
     updateData({ ...data, customSections: data.customSections.filter(s => s.id !== id) });
+  };
+
+  const updateSectionHeader = (key: keyof PortfolioData['sectionHeaders'], field: 'title' | 'tagline', value: string) => {
+    updateData({
+      ...data,
+      sectionHeaders: {
+        ...data.sectionHeaders,
+        [key]: { ...data.sectionHeaders[key], [field]: value }
+      }
+    });
   };
 
   // Handle name parts for layout
@@ -302,8 +316,16 @@ const App: React.FC = () => {
         <section id="projects" className="mb-64">
           <div className="flex justify-between items-end mb-24">
             <div>
-              <span className="text-cyan-400 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">STREAM // 01</span>
-              <h2 className="text-6xl font-bold uppercase tracking-tighter">Artifacts</h2>
+              <span className="text-cyan-400 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">
+                {isEditMode ? (
+                  <input value={data.sectionHeaders.projects.tagline} onChange={(e) => updateSectionHeader('projects', 'tagline', e.target.value)} className="bg-transparent border-b border-cyan-500/20 focus:outline-none" />
+                ) : data.sectionHeaders.projects.tagline}
+              </span>
+              <h2 className="text-6xl font-bold uppercase tracking-tighter">
+                {isEditMode ? (
+                  <input value={data.sectionHeaders.projects.title} onChange={(e) => updateSectionHeader('projects', 'title', e.target.value)} className="bg-transparent border-b border-cyan-500/20 focus:outline-none w-full" />
+                ) : data.sectionHeaders.projects.title}
+              </h2>
             </div>
             {isEditMode && <button onClick={addProject} className="px-8 py-4 bg-cyan-500 text-black font-black text-xs uppercase tracking-widest rounded-full">+ Inject Project</button>}
           </div>
@@ -318,8 +340,16 @@ const App: React.FC = () => {
         <section id="skills" className="mb-64">
           <div className="flex justify-between items-end mb-24">
             <div>
-              <span className="text-cyan-400 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">CORE // 02</span>
-              <h2 className="text-6xl font-bold uppercase tracking-tighter">Skills Matrix</h2>
+              <span className="text-cyan-400 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">
+                {isEditMode ? (
+                  <input value={data.sectionHeaders.skills.tagline} onChange={(e) => updateSectionHeader('skills', 'tagline', e.target.value)} className="bg-transparent border-b border-cyan-500/20 focus:outline-none" />
+                ) : data.sectionHeaders.skills.tagline}
+              </span>
+              <h2 className="text-6xl font-bold uppercase tracking-tighter">
+                {isEditMode ? (
+                  <input value={data.sectionHeaders.skills.title} onChange={(e) => updateSectionHeader('skills', 'title', e.target.value)} className="bg-transparent border-b border-cyan-500/20 focus:outline-none w-full" />
+                ) : data.sectionHeaders.skills.title}
+              </h2>
             </div>
             {isEditMode && <button onClick={addSkill} className="px-8 py-4 liquid-glass text-cyan-400 border-cyan-400/50 font-black text-xs uppercase tracking-widest rounded-full">+ Add Skill</button>}
           </div>
@@ -334,16 +364,19 @@ const App: React.FC = () => {
                 )}
                 
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-cyan-400/30 transition-colors">
-                    {isEditMode ? (
-                      <input 
-                        value={skill.icon} 
-                        onChange={(e) => updateSkill(idx, { icon: e.target.value })}
-                        className="bg-transparent text-[8px] w-full text-center focus:outline-none font-mono"
-                        placeholder="fa-solid fa-code"
-                      />
+                  <div 
+                    onClick={() => isEditMode && triggerImageUpload('skill', idx)}
+                    className={`w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-cyan-400/30 transition-colors overflow-hidden relative ${isEditMode ? 'cursor-pointer hover:bg-white/10' : ''}`}
+                  >
+                    {skill.image ? (
+                      <img src={skill.image} className="w-full h-full object-cover" alt={skill.name} />
                     ) : (
                       <i className={`${skill.icon} text-cyan-400 text-xl`}></i>
+                    )}
+                    {isEditMode && (
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/skill:opacity-100 transition-opacity flex items-center justify-center">
+                        <i className="fa-solid fa-camera text-[10px] text-white"></i>
+                      </div>
                     )}
                   </div>
                   <div className="flex-1">
@@ -357,17 +390,25 @@ const App: React.FC = () => {
                       <span className="text-sm font-bold uppercase tracking-widest block">{skill.name}</span>
                     )}
                     {isEditMode ? (
-                      <select 
-                        value={skill.category}
-                        onChange={(e) => updateSkill(idx, { category: e.target.value as any })}
-                        className="bg-transparent text-[8px] text-white/30 uppercase font-black tracking-widest mt-1 focus:outline-none"
-                      >
-                        <option value="Frontend">Frontend</option>
-                        <option value="Backend">Backend</option>
-                        <option value="DevOps">DevOps</option>
-                        <option value="AI/ML">AI/ML</option>
-                        <option value="Tools">Tools</option>
-                      </select>
+                      <div className="flex flex-col gap-1 mt-1">
+                         <input 
+                          value={skill.icon} 
+                          onChange={(e) => updateSkill(idx, { icon: e.target.value })}
+                          className="bg-transparent text-[7px] text-white/20 uppercase font-black tracking-widest focus:outline-none"
+                          placeholder="fa-solid fa-icon"
+                        />
+                        <select 
+                          value={skill.category}
+                          onChange={(e) => updateSkill(idx, { category: e.target.value as any })}
+                          className="bg-transparent text-[8px] text-white/30 uppercase font-black tracking-widest focus:outline-none"
+                        >
+                          <option value="Frontend">Frontend</option>
+                          <option value="Backend">Backend</option>
+                          <option value="DevOps">DevOps</option>
+                          <option value="AI/ML">AI/ML</option>
+                          <option value="Tools">Tools</option>
+                        </select>
+                      </div>
                     ) : (
                       <span className="text-[8px] text-white/30 uppercase font-black tracking-widest mt-1 block">{skill.category}</span>
                     )}
@@ -405,8 +446,16 @@ const App: React.FC = () => {
         <section id="experience" className="mb-64">
           <div className="flex justify-between items-end mb-24">
             <div>
-              <span className="text-cyan-400 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">LOG // 03</span>
-              <h2 className="text-6xl font-bold uppercase tracking-tighter">Professional Log</h2>
+              <span className="text-cyan-400 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">
+                {isEditMode ? (
+                  <input value={data.sectionHeaders.experience.tagline} onChange={(e) => updateSectionHeader('experience', 'tagline', e.target.value)} className="bg-transparent border-b border-cyan-500/20 focus:outline-none" />
+                ) : data.sectionHeaders.experience.tagline}
+              </span>
+              <h2 className="text-6xl font-bold uppercase tracking-tighter">
+                {isEditMode ? (
+                  <input value={data.sectionHeaders.experience.title} onChange={(e) => updateSectionHeader('experience', 'title', e.target.value)} className="bg-transparent border-b border-cyan-500/20 focus:outline-none w-full" />
+                ) : data.sectionHeaders.experience.title}
+              </h2>
             </div>
             {isEditMode && <button onClick={addExperience} className="px-8 py-4 liquid-glass text-cyan-400 border-cyan-400/50 font-black text-xs uppercase tracking-widest rounded-full">+ Add Experience</button>}
           </div>
@@ -440,8 +489,16 @@ const App: React.FC = () => {
         <section id="education" className="mb-64">
           <div className="flex justify-between items-end mb-24">
             <div>
-              <span className="text-fuchsia-400 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">EDU // 04</span>
-              <h2 className="text-6xl font-bold uppercase tracking-tighter">Academic Foundation</h2>
+              <span className="text-fuchsia-400 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">
+                {isEditMode ? (
+                  <input value={data.sectionHeaders.education.tagline} onChange={(e) => updateSectionHeader('education', 'tagline', e.target.value)} className="bg-transparent border-b border-fuchsia-500/20 focus:outline-none" />
+                ) : data.sectionHeaders.education.tagline}
+              </span>
+              <h2 className="text-6xl font-bold uppercase tracking-tighter">
+                {isEditMode ? (
+                  <input value={data.sectionHeaders.education.title} onChange={(e) => updateSectionHeader('education', 'title', e.target.value)} className="bg-transparent border-b border-fuchsia-500/20 focus:outline-none w-full" />
+                ) : data.sectionHeaders.education.title}
+              </h2>
             </div>
             {isEditMode && <button onClick={addEducation} className="px-8 py-4 liquid-glass text-fuchsia-400 border-fuchsia-400/50 font-black text-xs uppercase tracking-widest rounded-full">+ Add Academic Node</button>}
           </div>

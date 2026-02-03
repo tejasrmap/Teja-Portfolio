@@ -17,6 +17,7 @@ export interface Skill {
   level: number; // 1-100
   category: 'Frontend' | 'Backend' | 'DevOps' | 'AI/ML' | 'Tools';
   icon: string;
+  image?: string; // Optional image logo
 }
 
 export interface Experience {
@@ -54,6 +55,13 @@ export interface ChatMessage {
   text: string;
 }
 
+export interface SectionHeaders {
+  projects: { title: string; tagline: string };
+  skills: { title: string; tagline: string };
+  experience: { title: string; tagline: string };
+  education: { title: string; tagline: string };
+}
+
 export interface PortfolioData {
   name: string;
   role: string;
@@ -61,6 +69,7 @@ export interface PortfolioData {
   bio: string;
   fullBio: string;
   nameScale?: number;
+  sectionHeaders: SectionHeaders;
   projects: Project[];
   skills: Skill[];
   experience: Experience[];

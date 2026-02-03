@@ -8,6 +8,12 @@ const DEFAULT_DATA: PortfolioData = {
   bio: "Big Data Analyst | Full Stack Developer | Founder MD Of GT Innovix LLP",
   fullBio: "I am a BTech Computer Science Engineering (Big Data Analytics) student at SRM University – AP who is deeply interested in learning, building, and innovating through technology. As the founder of GT Innovix, I focus on creating software solutions that are practical, scalable, and aligned with real-world needs.\n\nMy areas of interest include full stack development, data analytics, and problem-solving through technology. I enjoy experimenting with new tools, frameworks, and ideas, and I constantly challenge myself to improve both my technical and analytical skills.\n\nI strongly believe that technology has the power to create meaningful impact. My goal is to continuously grow as a developer and contribute to projects that combine innovation, efficiency, and real-world value.",
   nameScale: 1,
+  sectionHeaders: {
+    projects: { title: "Artifacts", tagline: "STREAM // 01" },
+    skills: { title: "Skills Matrix", tagline: "CORE // 02" },
+    experience: { title: "Professional Log", tagline: "LOG // 03" },
+    education: { title: "Academic Foundation", tagline: "EDU // 04" }
+  },
   socials: {
     github: "https://github.com/teja-ganugula",
     linkedin: "https://linkedin.com/in/teja-ganugula",
@@ -63,7 +69,7 @@ const DEFAULT_DATA: PortfolioData = {
         "Active member of the Next-Gen Tech Lab."
       ]
     }
-  ],
+  ]
   customSections: []
 };
 
@@ -76,6 +82,7 @@ const getInitialData = (): PortfolioData => {
       if (!parsed.education) parsed.education = DEFAULT_DATA.education;
       if (!parsed.customSections) parsed.customSections = [];
       if (parsed.nameScale === undefined) parsed.nameScale = 1;
+      if (!parsed.sectionHeaders) parsed.sectionHeaders = DEFAULT_DATA.sectionHeaders;
       return parsed;
     } catch (e) {
       return DEFAULT_DATA;
