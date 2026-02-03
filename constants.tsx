@@ -37,7 +37,7 @@ const DEFAULT_DATA: PortfolioData = {
       longDescription: ".",
       image: "https://i.pinimg.com/736x/0d/53/be/0d53bea9c5f2ef597597e7dafc235d5a.jpg",
       tags: ["HTML", "JS", "CSS"],
-      links: { github: "https://github.com/tejasrmap/AgriRent_Website" }
+        links: { github: "https://github.com/tejasrmap/AgriRent_Website", redirect: "https://agrirent.tiiny.site/"}
     }
   ],
   skills: [

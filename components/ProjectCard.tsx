@@ -18,10 +18,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   onImageUpload
 }) => {
   const handleRedirect = () => {
-    if (project.links.demo) {
-      window.open(project.links.demo, '_blank', 'noopener,noreferrer');
-    } else if (project.links.github) {
-      window.open(project.links.github, '_blank', 'noopener,noreferrer');
+    // Priority order: Manual Redirect -> Demo -> GitHub
+    const target = project.links.redirect || project.links.demo || project.links.github;
+    if (target && target !== '#') {
+      window.open(target, '_blank', 'noopener,noreferrer');
     }
   };
 

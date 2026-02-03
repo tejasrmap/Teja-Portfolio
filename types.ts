@@ -9,6 +9,7 @@ export interface Project {
   links: {
     github?: string;
     demo?: string;
+    redirect?: string;
   };
 }
 
