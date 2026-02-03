@@ -9,10 +9,10 @@ const DEFAULT_DATA: PortfolioData = {
   fullBio: "I am a BTech Computer Science Engineering (Big Data Analytics) student at SRM University – AP who is deeply interested in learning, building, and innovating through technology. As the founder of GT Innovix, I focus on creating software solutions that are practical, scalable, and aligned with real-world needs.\n\nMy areas of interest include full stack development, data analytics, and problem-solving through technology. I enjoy experimenting with new tools, frameworks, and ideas, and I constantly challenge myself to improve both my technical and analytical skills.\n\nI strongly believe that technology has the power to create meaningful impact. My goal is to continuously grow as a developer and contribute to projects that combine innovation, efficiency, and real-world value.",
   nameScale: 1,
   sectionHeaders: {
-    projects: { title: "Artifacts", tagline: "STREAM // 01" },
-    skills: { title: "Skills Matrix", tagline: "CORE // 02" },
-    experience: { title: "Professional Log", tagline: "LOG // 03" },
-    education: { title: "Academic Foundation", tagline: "EDU // 04" }
+    projects: { title: "PROJECTS", tagline: "// 01" },
+    skills: { title: "SKILLS", tagline: "// 02" },
+    experience: { title: "EXPERIENCE", tagline: "// 03" },
+    education: { title: "EDUCATION", tagline: "EDU // 04" }
   },
   socials: {
     github: "https://github.com/tejasrmap",
@@ -22,7 +22,7 @@ const DEFAULT_DATA: PortfolioData = {
   },
   projects: [
     {
-      id: "INX-01",
+      id: "SRM-01",
       title: "CROWD MONITOR",
       description: "Proprietary internal architecture for scalable data processing and AI integration.",
       longDescription: "Innovix Core is the backbone of GT Innovix's software suite. It manages complex data streams and provides a unified interface for generative AI models to interact with legacy systems.",
@@ -66,9 +66,17 @@ const DEFAULT_DATA: PortfolioData = {
       description: [
         "Specializing in Big Data ecosystems, Hadoop, and high-performance computing.",
         "Engaging in advanced research for data visualization and predictive modeling.",
-        "Active member of the Next-Gen Tech Lab."
+        "CGPA = 8.20 (Till Date)"
       ]
-    }
+    },
+    {
+      institution: "Narayana Jumior College - Gudivada",
+      degree: "MPC - Intermediate",
+      period: "2022 - 2024",
+      description: [
+        "TOTAL = 896 / 1000"
+      ]
+    },
   ],
   customSections: []
 };
