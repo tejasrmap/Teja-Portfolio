@@ -70,7 +70,7 @@ const DEFAULT_DATA: PortfolioData = {
       ]
     },
     {
-      institution: "Narayana Jumior College - Gudivada",
+      institution: "Narayana Junior College - Gudivada",
       degree: "MPC - Intermediate",
       period: "2022 - 2024",
       description: [
