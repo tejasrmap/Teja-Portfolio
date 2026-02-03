@@ -121,7 +121,7 @@ const App: React.FC = () => {
     updateData({ ...data, customSections: data.customSections.filter(s => s.id !== id) });
   };
 
-  // Handle name parts for staggered layout
+  // Handle name parts for layout
   const nameParts = data.name.split(' ');
   const firstName = nameParts[0] || "";
   const lastName = nameParts.slice(1).join(' ') || "";
@@ -229,7 +229,7 @@ const App: React.FC = () => {
                 ) : data.role}
               </div>
 
-              {/* Huge Typography Overlay */}
+              {/* Huge Typography Overlay - Both stacked on the same side (left) */}
               <div className="mb-16">
                 {isEditMode ? (
                   <div className="flex flex-col gap-4">
@@ -250,7 +250,7 @@ const App: React.FC = () => {
                         updateData({...data, name: newName.trim()});
                       }}
                       style={dynamicNameStyle}
-                      className="font-extrabold uppercase tracking-tighter bg-transparent border-b-4 border-fuchsia-500/20 focus:outline-none focus:border-fuchsia-400 text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-fuchsia-300 to-cyan-400 w-full lg:ml-32 drop-shadow-[0_20px_50px_rgba(0,0,0,1)]"
+                      className="font-extrabold uppercase tracking-tighter bg-transparent border-b-4 border-fuchsia-500/20 focus:outline-none focus:border-fuchsia-400 text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-fuchsia-300 to-cyan-400 w-full drop-shadow-[0_20px_50px_rgba(0,0,0,1)]"
                       placeholder="LAST"
                     />
                   </div>
@@ -259,7 +259,7 @@ const App: React.FC = () => {
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-cyan-300 to-fuchsia-400 block drop-shadow-[0_20px_50px_rgba(0,0,0,1)]">
                       {firstName}
                     </span>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-fuchsia-300 to-cyan-400 block lg:-mt-12 lg:ml-32 drop-shadow-[0_20px_50px_rgba(0,0,0,1)]">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-fuchsia-300 to-cyan-400 block drop-shadow-[0_20px_50px_rgba(0,0,0,1)]">
                       {lastName}
                     </span>
                   </h1>
