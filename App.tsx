@@ -2,8 +2,11 @@
 import React, { useState, useRef } from 'react';
 import { PORTFOLIO_DATA as InitialData } from './constants';
 import { ProjectCard } from './components/ProjectCard';
-import { AIChat } from './components/AIChat';
 import { PortfolioData, Project, Skill, Experience, Education, CustomSection } from './types';
+import { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase";
+
 
 const App: React.FC = () => {
   const [data, setData] = useState<PortfolioData>(InitialData);
@@ -63,21 +66,6 @@ const App: React.FC = () => {
       };
       reader.readAsDataURL(file);
     }
-  };
-
-  const handleExport = () => {
-    const dataStr = JSON.stringify(data, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', 'portfolio_data.json');
-    linkElement.click();
-    alert("JSON Exported! Replace 'DEFAULT_DATA' in constants.tsx with this content to make changes public.");
-  };
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(JSON.stringify(data, null, 2));
-    alert("Configuration copied! Paste this into constants.tsx to deploy.");
   };
 
   // --- List Management ---
@@ -151,10 +139,12 @@ const App: React.FC = () => {
     });
   };
 
+  // Handle name parts for layout
   const nameParts = data.name.split(' ');
   const firstName = nameParts[0] || "";
   const lastName = nameParts.slice(1).join(' ') || "";
 
+  // Dynamic Scale Style for the massive name
   const dynamicNameStyle = {
     fontSize: `clamp(4rem, ${(data.nameScale || 1) * 11}vw, ${(data.nameScale || 1) * 15}rem)`,
     lineHeight: '0.8'
@@ -216,18 +206,6 @@ const App: React.FC = () => {
                  <button onClick={addCustomSection} className="px-8 py-3 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-cyan-500/20 transition-all mt-2">
                    + Add New Section
                  </button>
-                 
-                 <div className="h-px bg-white/10 my-2"></div>
-                 <span className="text-[8px] font-black uppercase tracking-widest text-white/20 mb-1">Deploy Interface</span>
-                 <div className="grid grid-cols-2 gap-2">
-                    <button onClick={handleExport} className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-400/50 transition-all group" title="Download JSON">
-                        <i className="fa-solid fa-download text-cyan-400 group-hover:scale-110 transition-transform"></i>
-                    </button>
-                    <button onClick={copyToClipboard} className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-fuchsia-400/50 transition-all group" title="Copy to Clipboard">
-                        <i className="fa-solid fa-copy text-fuchsia-400 group-hover:scale-110 transition-transform"></i>
-                    </button>
-                 </div>
-                 <span className="text-[7px] leading-tight text-white/30 uppercase font-bold text-center mt-2 px-2 italic">Copy this JSON into constants.tsx to make your changes visible to everyone.</span>
                </div>
              )}
              
@@ -240,19 +218,14 @@ const App: React.FC = () => {
         
         {/* --- ABOUT --- */}
         <section id="about" className="mb-48 md:mb-64 relative min-h-[70vh] flex flex-col justify-center">
-          {/* Profile Photo - Elevated Z-index in Edit Mode */}
-          <div className={`lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-2/5 flex justify-center lg:justify-end ${isEditMode ? 'z-30' : 'z-0'}`}>
+          {/* Background Layer: Profile Photo */}
+          <div className="lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-2/5 flex justify-center lg:justify-end z-0">
             <div className="relative w-full max-w-[420px] lg:max-w-[550px] aspect-square lg:aspect-[4/5] xl:aspect-square">
               <div 
                 onClick={() => isEditMode && triggerImageUpload('avatar')} 
                 className={`relative w-full h-full rounded-[4rem] overflow-hidden group shadow-[0_40px_80px_-15px_rgba(0,0,0,0.8)] border border-white/10 ${isEditMode ? 'cursor-pointer ring-4 ring-cyan-500' : ''}`}
               >
-                {isEditMode && (
-                  <div className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-black/60 backdrop-blur-md text-white border-2 border-dashed border-cyan-400/50 m-4 rounded-[3rem]">
-                    <i className="fa-solid fa-camera text-3xl mb-4 text-cyan-400"></i>
-                    <span className="font-black text-xs uppercase tracking-[0.3em]">Change Profile Photo</span>
-                  </div>
-                )}
+                {isEditMode && <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/60 backdrop-blur-md text-white font-black text-[10px] text-center p-4 uppercase tracking-widest">Update Photo</div>}
                 <img src={data.avatar} className="w-full h-full object-cover grayscale-[0.2] transition-all duration-1000" alt={data.name} />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/10 to-transparent lg:hidden"></div>
               </div>
@@ -260,6 +233,7 @@ const App: React.FC = () => {
             </div>
           </div>
 
+          {/* Foreground Layer: Text Content */}
           <div className="relative z-10 pointer-events-none lg:w-full">
             <div className="pointer-events-auto">
               <div className="inline-flex px-8 py-3 rounded-full liquid-glass mb-10 text-[11px] font-black text-cyan-400 border-cyan-400/30 tracking-[0.3em] uppercase shadow-[0_0_20px_rgba(34,211,238,0.2)]">
@@ -273,6 +247,7 @@ const App: React.FC = () => {
                 ) : data.role}
               </div>
 
+              {/* Huge Typography Overlay - Both stacked on the same side (left) */}
               <div className="mb-16">
                 {isEditMode ? (
                   <div className="flex flex-col gap-4">
@@ -387,7 +362,7 @@ const App: React.FC = () => {
             {data.skills.map((skill, idx) => (
               <div key={idx} className="liquid-glass p-8 rounded-[2.5rem] border-white/5 relative group transition-all hover:border-cyan-400/30">
                 {isEditMode && (
-                  <button onClick={() => removeSkill(idx)} className="absolute top-4 right-4 z-20 text-fuchsia-500 hover:scale-110 transition-transform">
+                  <button onClick={() => removeSkill(idx)} className="absolute top-4 right-4 text-fuchsia-500 hover:scale-110 transition-transform">
                     <i className="fa-solid fa-circle-xmark"></i>
                   </button>
                 )}
@@ -395,7 +370,7 @@ const App: React.FC = () => {
                 <div className="flex items-center gap-4 mb-6">
                   <div 
                     onClick={() => isEditMode && triggerImageUpload('skill', idx)}
-                    className={`w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-cyan-400/30 transition-colors overflow-hidden relative ${isEditMode ? 'cursor-pointer ring-2 ring-cyan-500/40 hover:bg-white/10' : ''}`}
+                    className={`w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-cyan-400/30 transition-colors overflow-hidden relative ${isEditMode ? 'cursor-pointer hover:bg-white/10' : ''}`}
                   >
                     {skill.image ? (
                       <img src={skill.image} className="w-full h-full object-cover" alt={skill.name} />
@@ -403,7 +378,7 @@ const App: React.FC = () => {
                       <i className={`${skill.icon} text-cyan-400 text-xl`}></i>
                     )}
                     {isEditMode && (
-                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-80">
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/skill:opacity-100 transition-opacity flex items-center justify-center">
                         <i className="fa-solid fa-camera text-[10px] text-white"></i>
                       </div>
                     )}
@@ -557,6 +532,7 @@ const App: React.FC = () => {
           </div>
         </section>
 
+        {/* --- DYNAMIC CUSTOM SECTIONS --- */}
         {data.customSections.map((section, sIdx) => {
           const accentClass = section.accent === 'fuchsia' ? 'text-fuchsia-400' : section.accent === 'emerald' ? 'text-emerald-400' : 'text-cyan-400';
           const bgAccentClass = section.accent === 'fuchsia' ? 'bg-fuchsia-400' : section.accent === 'emerald' ? 'bg-emerald-400' : 'bg-cyan-400';
@@ -752,9 +728,6 @@ const App: React.FC = () => {
           </div>
         </div>
       </footer>
-
-      {/* AI Assistant Integration */}
-      <AIChat />
 
       {isLoginOpen && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl animate-in fade-in">
