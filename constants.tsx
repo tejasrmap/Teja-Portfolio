@@ -4,7 +4,7 @@ import { PortfolioData } from './types';
 const DEFAULT_DATA: PortfolioData = {
   name: "TEJA GANUGULA",
   role: "Founder & Director of GT Innovix",
-  avatar: "https://i.pinimg.com/736x/95/d8/9f/95d89fd418c11c77e6fe2e91c3723e69.jpg",
+  avatar: "https://i.pinimg.com/736x/49/09/3c/49093cd4230d03b5f70d26483138c9e7.jpg",
   bio: "Big Data Analyst | Full Stack Developer | Founder MD Of GT Innovix LLP",
   fullBio: "I am a BTech Computer Science Engineering (Big Data Analytics) student at SRM University – AP who is deeply interested in learning, building, and innovating through technology. As the founder of GT Innovix, I focus on creating software solutions that are practical, scalable, and aligned with real-world needs.\n\nMy areas of interest include full stack development, data analytics, and problem-solving through technology. I enjoy experimenting with new tools, frameworks, and ideas, and I constantly challenge myself to improve both my technical and analytical skills.\n\nI strongly believe that technology has the power to create meaningful impact. My goal is to continuously grow as a developer and contribute to projects that combine innovation, efficiency, and real-world value.",
   nameScale: 1,
