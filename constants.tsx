@@ -6,7 +6,7 @@ const DEFAULT_DATA: PortfolioData = {
   role: "Founder & Director of GT Innovix",
   avatar: "https://i.pinimg.com/736x/49/09/3c/49093cd4230d03b5f70d26483138c9e7.jpg",
   bio: "Big Data Analyst | Full Stack Developer | Founder MD Of GT Innovix LLP",
-  fullBio: "I am a BTech Computer Science Engineering (Big Data Analytics) student at SRM University – AP who is deeply interested in learning, building, and innovating through technology. As the founder of GT Innovix, I focus on creating software solutions that are practical, scalable, and aligned with real-world needs.\n\nMy areas of interest include full stack development, data analytics, and problem-solving through technology. I enjoy experimenting with new tools, frameworks, and ideas, and I constantly challenge myself to improve both my technical and analytical skills.\n\nI strongly believe that technology has the power to create meaningful impact. My goal is to continuously grow as a developer and contribute to projects that combine innovation, efficiency, and real-world value.",
+  fullBio: "I am Teja Ganugula, a Computer Science Engineering student specializing in Big Data Analytics at SRM University–AP. I am the Founder and Managing Director of GT Innovix LLP, where I actively work on transforming ideas into scalable solutions. As a team lead in multiple hackathons, I have led projects from concept to execution and presented startup pitches to diverse audiences. I am deeply interested in coding, exploring emerging technologies, and building innovative products within the entrepreneurship ecosystem.",
   nameScale: 1,
   sectionHeaders: {
     projects: { title: "PROJECTS", tagline: "// 01" },
