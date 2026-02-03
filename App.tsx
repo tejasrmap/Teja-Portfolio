@@ -143,8 +143,8 @@ const App: React.FC = () => {
 
   // Dynamic Scale Style for the massive name
   const dynamicNameStyle = {
-    fontSize: `clamp(4rem, ${(data.nameScale || 1) * 11}vw, ${(data.nameScale || 1) * 15}rem)`,
-    lineHeight: '0.8'
+    fontSize: `clamp(1.8rem, ${(data.nameScale || 1) * 4.5}vw, ${(data.nameScale || 1) * 6.5}rem)`,
+    lineHeight: '0.85'
   };
 
   return (
