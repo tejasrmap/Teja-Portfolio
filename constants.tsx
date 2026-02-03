@@ -41,10 +41,14 @@ const DEFAULT_DATA: PortfolioData = {
     }
   ],
   skills: [
-    { name: "Big Data Analysis", level: 96, category: "AI/ML", icon: "fa-solid fa-chart-network" },
-    { name: "Full Stack Dev", level: 98, category: "Frontend", icon: "fa-solid fa-code" },
-    { name: "System Architecture", level: 94, category: "Backend", icon: "fa-solid fa-layer-group" },
-    { name: "React / Next.js", level: 97, category: "Frontend", icon: "fa-brands fa-react" },
+    { name: "C", level: 96, category: "Programming", icon: "fa-solid fa-chart-network" },
+    { name: "C++", level: 98, category: "Programming", icon: "fa-solid fa-code" },
+    { name: "Python", level: 94, category: "Programming", icon: "fa-solid fa-layer-group" },
+    { name: "HTML", level: 97, category: "Frontend", icon: "fa-brands fa-react" },
+    { name: "JS", level: 96, category: "Frontend", icon: "fa-solid fa-chart-network" },
+    { name: "CSS", level: 98, category: "Frontend", icon: "fa-solid fa-code" },
+    { name: "MySQL", level: 94, category: "DataBase", icon: "fa-solid fa-layer-group" },
+    { name: "MongoDB", level: 97, category: "DataBase", icon: "fa-brands fa-react" },
   ],
   experience: [
     {
