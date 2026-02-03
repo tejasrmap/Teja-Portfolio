@@ -3,9 +3,6 @@ import React, { useState, useRef } from 'react';
 import { PORTFOLIO_DATA as InitialData } from './constants';
 import { ProjectCard } from './components/ProjectCard';
 import { PortfolioData, Project, Skill, Experience, Education, CustomSection } from './types';
-import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase";
 
 
 const App: React.FC = () => {
