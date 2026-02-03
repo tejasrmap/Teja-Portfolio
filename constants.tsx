@@ -17,7 +17,7 @@ const DEFAULT_DATA: PortfolioData = {
   socials: {
     github: "https://github.com/tejasrmap",
     linkedin: "https://linkedin.com/in/tejaganugula",
-    twitter: "https://twitter.com/teja_ganugula",
+    twitter: "https://x.com/tejagtax?s=11",
     email: "tejag.vijay@gmail.com"
   },
   projects: [
@@ -33,11 +33,11 @@ const DEFAULT_DATA: PortfolioData = {
     {
       id: "SRM-02",
       title: "AGRIRENT SITE",
-      description: "A specialized analytics tool for mapping student engagement and resource allocation.",
-      longDescription: "Developed as a research initiative at SRM University AP, this tool uses predictive modeling to optimize campus resource usage during peak hours.",
-      image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800",
-      tags: ["Data Analytics", "React", "Research"],
-      links: { github: "#" }
+      description: "A FrontEnd Website Made Baed On HTML JS CSS for Farmers to rent Agricultura Equipment from Equipment Owners Directly without Middlemen.",
+      longDescription: ".",
+      image: "https://i.pinimg.com/736x/0d/53/be/0d53bea9c5f2ef597597e7dafc235d5a.jpg",
+      tags: ["HTML", "JS", "CSS"],
+      links: { github: "https://github.com/tejasrmap/AgriRent_Website" }
     }
   ],
   skills: [
