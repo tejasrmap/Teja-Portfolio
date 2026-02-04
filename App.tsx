@@ -161,7 +161,7 @@ const App: React.FC = () => {
               <a href="#skills" className="hover:text-cyan-400 transition-all">Skills</a>
             </div>
             <div className="flex items-center justify-center flex-1">
-              <span className="font-black tracking-[0.08em] text-[45px] md:text-xs uppercase text-white/95 nav-logo">
+              <span className="font-black tracking-[0.08em] text-[45px] md:text-s uppercase text-white/95 nav-logo">
                 {isEditMode ? (
                   <input value={data.name} onChange={(e) => updateData({...data, name: e.target.value.toUpperCase()})} className="bg-transparent border-b border-cyan-500/40 focus:outline-none text-center" />
                 ) : data.name}
