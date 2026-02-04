@@ -47,7 +47,7 @@ const DEFAULT_DATA: PortfolioData = {
       image: "https://i.pinimg.com/736x/1c/31/ba/1c31baaa43a760f1ae005158a5bdd040.jpg",
       tags: ["Python", "YoloV8", "Streamlit", "CV2"],
         links: { github: "https://github.com/tejasrmap/ObjectDetection-LiveFeed", redirect: "#"}
-    }
+    },
     {
       id: "GT-04",
       title: "Offline Voice Assistant for Laptop",
