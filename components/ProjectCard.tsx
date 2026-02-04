@@ -77,7 +77,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             />
           ) : project.title}
         </h3>
-        <p className="text-white/60 text-sm mb-8 leading-relaxed font-medium line-clamp-2">
+        <p className="text-white/60 text-sm mb-8 leading-relaxed font-medium line-clamp-10">
           {isEditMode ? (
             <textarea 
               value={project.description} 
