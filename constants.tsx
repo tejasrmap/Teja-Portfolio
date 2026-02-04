@@ -33,7 +33,7 @@ const DEFAULT_DATA: PortfolioData = {
     {
       id: "GT-02",
       title: "AGRIRENT SITE",
-      description: "A FrontEnd Website Made Based On HTML JS CSS for Farmers to rent Agricultura Equipment from Equipment Owners Directly without Middlemen.",
+      description: "A responsive web application connecting farmers with premium farming equipment through an intuitive rental system. Built entirely with HTML5, CSS3, and Vanilla JavaScript, this platform features real-time inventory management, secure user authentication, and a seamless booking workflow.",
       longDescription: ".",
       image: "https://i.pinimg.com/736x/0d/53/be/0d53bea9c5f2ef597597e7dafc235d5a.jpg",
       tags: ["HTML", "JS", "CSS"],
