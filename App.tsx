@@ -155,7 +155,7 @@ const App: React.FC = () => {
       <nav className="fixed top-6 md:top-10 left-0 right-0 z-[90] pointer-events-none">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="liquid-glass h-12 md:h-14 rounded-full px-8 md:px-12 flex items-center justify-between pointer-events-auto border-white/20 shadow-2xl">
-            <div className="hidden lg:flex gap-10 text-[15px] font-black uppercase tracking-[0.4em] text-white/90 w-1/3">
+            <div className="hidden lg:flex gap-10 text-[8px] font-black uppercase tracking-[0.4em] text-white/90 w-1/3">
               <a href="#about" className="hover:text-cyan-400 transition-all">Origin</a>
               <a href="#projects" className="hover:text-cyan-400 transition-all">Work</a>
               <a href="#skills" className="hover:text-cyan-400 transition-all">Skills</a>
@@ -167,7 +167,7 @@ const App: React.FC = () => {
                 ) : data.name}
               </span>
             </div>
-            <div className="hidden lg:flex items-center justify-end gap-10 text-[15px] font-black uppercase tracking-[0.4em] text-white/90 w-1/3">
+            <div className="hidden lg:flex items-center justify-end gap-10 text-[8px] font-black uppercase tracking-[0.4em] text-white/90 w-1/3">
               <a href="#experience" className="hover:text-cyan-400 transition-all">Log</a>
               <a href="#education" className="hover:text-fuchsia-400 transition-all">Academia</a>
             </div>
