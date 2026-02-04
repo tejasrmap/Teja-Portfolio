@@ -42,7 +42,7 @@ const DEFAULT_DATA: PortfolioData = {
     {
       id: "GT-03",
       title: "Object Detection Using Live Camera Feed",
-      description: "This is made completely based on Python YOLOv8 and used Streamlit for Testing Purposes.",
+      description: "A real-time live object detection system developed using YOLOv8 and Python, capable of identifying and tracking multiple objects through a live camera feed. The application processes video frames in real time to draw bounding boxes with class labels and confidence scores, enabling accurate and fast detection. Designed for practical use cases such as surveillance, traffic monitoring, and safety systems, the project demonstrates efficient computer vision techniques and seamless integration of deep learning models into real-time applications.",
       longDescription: ".",
       image: "https://i.pinimg.com/736x/1c/31/ba/1c31baaa43a760f1ae005158a5bdd040.jpg",
       tags: ["Python", "YoloV8", "Streamlit", "CV2"],
