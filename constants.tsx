@@ -24,7 +24,7 @@ const DEFAULT_DATA: PortfolioData = {
     {
       id: "GT-01",
       title: "CROWD MONITOR",
-      description: "Built an intelligent crowd monitoring system enabling real-time analysis for safety and resource optimization.",
+      description: "I developed a Crowd Monitoring System as part of a hackathon project to address real-time crowd management and safety challenges. The system leverages computer vision and AI techniques to detect, track, and analyze crowd density from live video feeds. It helps identify overcrowded zones and unusual movement patterns to prevent potential risks. The solution processes data efficiently to provide real-time alerts and visual insights. This project demonstrates the practical application of machine learning in public safety and smart surveillance. It is designed to support authorities in making faster, data-driven decisions. The system emphasizes scalability and accuracy for use in large public spaces. Overall, the project showcases innovation, teamwork, and problem-solving under hackathon constraints.",
       longDescription: "",
       image: "https://i.pinimg.com/736x/da/a1/1b/daa11b7fd6597c08e98bd019c12e5d8e.jpg",
       tags: ["HTML", "JS", "CSS", "MongoDB", "Python"],
