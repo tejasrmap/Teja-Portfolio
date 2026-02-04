@@ -48,6 +48,15 @@ const DEFAULT_DATA: PortfolioData = {
       tags: ["Python", "YoloV8", "Streamlit", "CV2"],
         links: { github: "https://github.com/tejasrmap/ObjectDetection-LiveFeed", redirect: "#"}
     }
+    {
+      id: "GT-04",
+      title: "Offline Voice Assistant for Laptop",
+      description: "This is made completely based on Python with help of pyaudio and vosk models .",
+      longDescription: ".",
+      image: "https://i.pinimg.com/736x/ce/4f/e4/ce4fe4598da0e676193217ae87760326.jpg",
+      tags: ["Python", "VOSK"],
+        links: { github: "https://github.com/tejasrmap/PythonVoiceAssistant-Laptop", redirect: "#"}
+    }
   ],
   skills: [
     { name: "C", level: 96, category: "Programming", icon: "fa-solid fa-code" },
