@@ -51,7 +51,7 @@ const DEFAULT_DATA: PortfolioData = {
     {
       id: "GT-04",
       title: "Offline Voice Assistant for Laptop",
-      description: "This is made completely based on Python with help of pyaudio and vosk models .",
+      description: "Developed an offline voice-based computer control system using Python that allows users to control system functions through speech commands. The application leverages VOSK for offline speech recognition, PyAudio for real-time microphone input, and Windows system APIs to manage volume, brightness, applications, and system operations. The system operates without internet connectivity and provides a hands-free, accessible computing experience.",
       longDescription: ".",
       image: "https://i.pinimg.com/736x/ce/4f/e4/ce4fe4598da0e676193217ae87760326.jpg",
       tags: ["Python", "VOSK"],
