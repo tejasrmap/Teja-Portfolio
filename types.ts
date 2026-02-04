@@ -16,7 +16,7 @@ export interface Project {
 export interface Skill {
   name: string;
   level: number; // 1-100
-  category: 'Frontend' | 'Backend' | 'DevOps' | 'AI/ML' | 'Tools';
+  category: 'Frontend' | 'Backend' | 'DevOps' | 'AI/ML' | 'Tools' | 'Programming' | 'DataBase' | 'Entrepreneurship';
   icon: string;
   image?: string; // Optional image logo
 }

@@ -155,25 +155,25 @@ const App: React.FC = () => {
       <nav className="fixed top-6 md:top-10 left-0 right-0 z-[90] pointer-events-none">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="liquid-glass h-12 md:h-14 rounded-full px-8 md:px-12 flex items-center justify-between pointer-events-auto border-white/20 shadow-2xl">
-            <div className="hidden lg:flex gap-10 text-[7px] font-black uppercase tracking-[0.4em] text-white/40 w-1/3">
+            <div className="hidden lg:flex gap-10 text-[7px] font-black uppercase tracking-[0.4em] text-white/90 w-1/3">
               <a href="#about" className="hover:text-cyan-400 transition-all">Origin</a>
               <a href="#projects" className="hover:text-cyan-400 transition-all">Work</a>
               <a href="#skills" className="hover:text-cyan-400 transition-all">Skills</a>
             </div>
             <div className="flex items-center justify-center flex-1">
-              <span className="font-black tracking-[0.08em] text-[10px] md:text-xs uppercase text-white/90 nav-logo">
+              <span className="font-black tracking-[0.08em] text-[25px] md:text-xs uppercase text-white/95 nav-logo">
                 {isEditMode ? (
                   <input value={data.name} onChange={(e) => updateData({...data, name: e.target.value.toUpperCase()})} className="bg-transparent border-b border-cyan-500/40 focus:outline-none text-center" />
                 ) : data.name}
               </span>
             </div>
-            <div className="hidden lg:flex items-center justify-end gap-10 text-[7px] font-black uppercase tracking-[0.4em] text-white/40 w-1/3">
+            <div className="hidden lg:flex items-center justify-end gap-10 text-[7px] font-black uppercase tracking-[0.4em] text-white/90 w-1/3">
               <a href="#experience" className="hover:text-cyan-400 transition-all">Log</a>
               <a href="#education" className="hover:text-fuchsia-400 transition-all">Academia</a>
             </div>
           </div>
         </div>
-      </nav>
+      </nav>  
 
       {isAdmin && (
         <div className="fixed top-32 right-10 z-[100] flex flex-col gap-4">
