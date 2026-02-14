@@ -322,7 +322,7 @@ const App: React.FC = () => {
                   <input value={data.sectionHeaders.projects.tagline} onChange={(e) => updateSectionHeader('projects', 'tagline', e.target.value)} className="bg-transparent border-b border-cyan-500/20 focus:outline-none" />
                 ) : data.sectionHeaders.projects.tagline}
               </span>
-              <h2 className="text-6xl font-bold uppercase tracking-tighter">
+              <h2 className="text-5xl font-bold uppercase tracking-tighter">
                 {isEditMode ? (
                   <input value={data.sectionHeaders.projects.title} onChange={(e) => updateSectionHeader('projects', 'title', e.target.value)} className="bg-transparent border-b border-cyan-500/20 focus:outline-none w-full" />
                 ) : data.sectionHeaders.projects.title}
