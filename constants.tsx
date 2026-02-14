@@ -56,6 +56,15 @@ const DEFAULT_DATA: PortfolioData = {
       image: "https://i.pinimg.com/736x/ce/4f/e4/ce4fe4598da0e676193217ae87760326.jpg",
       tags: ["Python", "VOSK"],
         links: { github: "https://github.com/tejasrmap/PythonVoiceAssistant-Laptop", redirect: "#"}
+    },
+    {
+      id: "GT-05",
+      title: "PeaceXplorer - Work-Life Balancer.",
+      description: "Developed PeaceXplorer, a human-centered wellbeing analysis application using Flutter that evaluates daily lifestyle balance based on work/study time, sleep, screen usage, and social interaction. The application calculates a behavioral balance score and converts it into meaningful emotional insights and real-world suggestions, encouraging users to improve human connection and mental wellness. The system stores daily reflections locally, visualizes past patterns through a calm history dashboard, and operates entirely offline without user accounts, focusing on accessibility, privacy, and mindful technology usage.",
+      longDescription: ".",
+      image: "https://i.pinimg.com/736x/93/65/cf/9365cf4e4b94af9fb86fb7f6540b4870.jpg",
+      tags: ["Flutter", "Dart"],
+        links: { github: "https://github.com/tejasrmap/WorkLifeBalance-C4CHackathon", redirect: "#"}
     }
   ],
   skills: [
